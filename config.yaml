@@ -1,0 +1,88 @@
+# Screening Configuration
+screening:
+  universe: "SP500"  # SP500, NASDAQ100, RUSSELL2000, ALL
+  min_volume: 1000000  # Minimum average daily volume
+  min_price: 5.0  # Minimum stock price
+  max_positions: 10  # Maximum concurrent positions
+  min_score: 70  # Minimum total score for consideration
+
+# Strategy Weights (must sum to 1.0)
+strategy_weights:
+  earnings_catalyst: 0.30
+  institutional_flow: 0.25
+  technical_breakout: 0.20
+  short_squeeze: 0.15
+  sentiment_analysis: 0.10
+
+# Risk Management
+risk_management:
+  max_position_size: 0.15  # Max 15% of account per position
+  max_portfolio_heat: 0.30  # Max 30% of account at risk
+  stop_loss_atr: 2.0  # Stop loss at 2x ATR
+  take_profit_atr_1: 3.0  # First target at 3x ATR
+  take_profit_atr_2: 5.0  # Second target at 5x ATR
+  max_risk_per_trade: 0.02  # Max 2% risk per trade
+  initial_account: 100000  # Initial account size
+
+# Reinforcement Learning
+rl_agent:
+  algorithm: "PPO"  # PPO or A2C
+  learning_rate: 0.0003
+  n_steps: 2048
+  batch_size: 64
+  n_epochs: 10
+  gamma: 0.99
+  training_timesteps: 10000
+  update_frequency: "weekly"  # weekly, daily
+  model_path: "data/models/rl_agent_ppo.zip"
+
+# Data Sources
+data_sources:
+  price_data: "yfinance"  # yfinance (free), alpaca, polygon
+  earnings_calendar: "yahoo"
+  insider_trading: "sec_edgar"
+  short_interest: "finviz"
+  options_flow: "manual"  # Would need paid API
+  sentiment: "manual"  # Would need Twitter API or similar
+
+# Technical Indicators
+technical:
+  atr_period: 14
+  rsi_period: 14
+  ma_periods: [20, 50, 200]
+  volume_ma_period: 20
+  
+# Backtesting
+backtest:
+  start_date: "2023-01-01"
+  end_date: "2024-11-17"
+  initial_capital: 100000
+  commission: 0.001  # 0.1% per trade
+  slippage: 0.001  # 0.1% slippage
+
+# GitHub Actions
+automation:
+  weekly_rebalance_day: "friday"  # day of week
+  weekly_rebalance_time: "17:00"  # UTC time (18:00 CET)
+  daily_monitoring_time: "21:00"  # UTC time (22:00 CET)
+  enable_notifications: false
+  enable_auto_trading: false  # Set to true for live trading
+
+# Notifications (Optional)
+notifications:
+  telegram:
+    enabled: false
+    bot_token: ""
+    chat_id: ""
+  email:
+    enabled: false
+    smtp_server: ""
+    from_email: ""
+    to_email: ""
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "logs/trading.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
